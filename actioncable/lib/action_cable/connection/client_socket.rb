@@ -55,10 +55,12 @@ module ActionCable
       end
 
       def ping
+        Rails.logger.debug "ping #{@ping_times}"
         return false if @ready_state > OPEN
         @ping_times += 1
         result = @driver.ping('pong') do
           @ping_times = 0
+          Rails.logger.debug "ping clear"
         end
         client_gone if @ping_times > 5
       end
