@@ -57,7 +57,6 @@ module ActionCable
       def ping
         Rails.logger.debug "ping #{@ping_times}"
         Rails.logger.debug "ready_state #{@ready_state}"
-        return false if @ready_state > OPEN
         @ping_times += 1
         result = @driver.ping('pong') do
           @ping_times = 0
