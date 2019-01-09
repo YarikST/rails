@@ -63,6 +63,7 @@ module ActionCable
           Rails.logger.debug "ping clear"
         end
         if @ping_times > 5
+          Rails.logger.debug "client_gone"
           client_gone
         else
           return true
@@ -162,7 +163,6 @@ module ActionCable
         end
 
         def finalize_close
-          return if @ready_state == CLOSED
           @ready_state = CLOSED
 
           @event_target.on_close(*@close_params)
